@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -27,6 +28,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -34,7 +39,12 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'
 
-    implementation 'com.google.dagger:dagger-android:2.35.1'
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.10'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.40.5'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+
+    def daggerVer = 2.27
+
+    implementation "com.google.dagger:dagger:$daggerVer"
+    implementation "com.google.dagger:dagger-android-support:$daggerVer"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVer"
+    kapt "com.google.dagger:dagger-compiler:$daggerVer"
 }
