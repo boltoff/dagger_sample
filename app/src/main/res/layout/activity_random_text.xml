@@ -4,12 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screen.main.MainActivity">
+    tools:context=".screen.randomtext.RandomTextActivity">
+
+    <TextView
+        android:id="@+id/randomTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:text="Click button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/openRandomButton"
+        android:id="@+id/randomButton"
         android:layout_width="0dp"
-        android:text="open RandomTextActivity"
+        android:text="Get random number"
         android:layout_marginBottom="20dp"
         android:layout_marginHorizontal="20dp"
         android:layout_height="wrap_content"

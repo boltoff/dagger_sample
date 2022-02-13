@@ -1,41 +1,42 @@
-package com.bolt.daggersample.screen.main
+package com.bolt.daggersample.screen.randomtext
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import com.bolt.daggersample.databinding.ActivityMainBinding
+import com.bolt.daggersample.databinding.ActivityRandomTextBinding
 import com.bolt.daggersample.di.util.appComponent
-import com.bolt.daggersample.screen.randomtext.RandomTextActivity
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class RandomTextActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityRandomTextBinding
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: RandomTextViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityRandomTextBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
         appComponent().inject(this)
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[MainViewModel::class.java]
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[RandomTextViewModel::class.java]
 
         initViews()
         initObservers()
     }
 
     private fun initViews() {
-        binding.openRandomButton.setOnClickListener {
-            startActivity(Intent(this, RandomTextActivity::class.java))
+        binding.randomButton.setOnClickListener {
+            viewModel.onRandomButtonClick()
         }
     }
 
     private fun initObservers() {
+        viewModel.randomValue.observe(this) {
+            binding.randomTextView.text = it
+        }
     }
 }
