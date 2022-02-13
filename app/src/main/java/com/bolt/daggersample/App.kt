@@ -1,9 +1,10 @@
 package com.bolt.daggersample
 
 import android.app.Application
-import android.content.Context
+import com.bolt.daggersample.di.component.AppComponent
+import com.bolt.daggersample.di.component.DaggerAppComponent
 
-class App: Application() {
+class App : Application() {
 
     lateinit var appComponent: AppComponent
 
@@ -14,12 +15,5 @@ class App: Application() {
 
     private fun initDagger() {
         appComponent = DaggerAppComponent.create()
-    }
-}
-
-fun Context.appComponent(): AppComponent {
-    return when (this) {
-        is App -> appComponent
-        else -> applicationContext.appComponent()
     }
 }
