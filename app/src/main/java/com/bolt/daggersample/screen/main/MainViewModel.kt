@@ -3,15 +3,22 @@ package com.bolt.daggersample.screen.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.bolt.daggersample.utils.CustomText
 import javax.inject.Inject
+import javax.inject.Named
 
 class MainViewModel
-@Inject constructor() : ViewModel() {
+@Inject constructor(
+    @Named("FirstText")
+    private val firstText: CustomText,
+    @Named("SecondText")
+    private val secondText: CustomText
+) : ViewModel() {
 
-    private val _randomValue = MutableLiveData<String>()
-    val randomValue: LiveData<String> = _randomValue
+    private val _dependencyText = MutableLiveData<Pair<String, String>>()
+    val dependencyText: LiveData<Pair<String, String>> = _dependencyText
 
-    fun onRandomButtonClick() {
-        _randomValue.value = (0..10000000000000).random().toString()
+    init {
+        _dependencyText.value = firstText.text to secondText.text
     }
 }

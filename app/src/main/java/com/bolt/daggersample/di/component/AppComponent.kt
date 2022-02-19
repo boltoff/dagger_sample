@@ -1,18 +1,18 @@
 package com.bolt.daggersample.di.component
 
-import com.bolt.daggersample.di.module.MainModule
-import com.bolt.daggersample.di.module.RandomTextModule
-import com.bolt.daggersample.di.module.ViewModelModule
-import com.bolt.daggersample.screen.main.MainActivity
-import com.bolt.daggersample.screen.randomtext.RandomTextActivity
+import com.bolt.daggersample.di.module.UtilsModule
+import com.bolt.daggersample.utils.CustomText
 import dagger.Component
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [ViewModelModule::class, MainModule::class, RandomTextModule::class])
+@Component(modules = [UtilsModule::class])
 interface AppComponent {
 
-    fun inject(activity: MainActivity)
+    @Named("FirstText")
+    fun firstText(): CustomText
 
-    fun inject(activity: RandomTextActivity)
+    @Named("SecondText")
+    fun secondText(): CustomText
 }
