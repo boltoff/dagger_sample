@@ -12,15 +12,3 @@ fun Context.appComponent(): AppComponent {
         else -> applicationContext.appComponent()
     }
 }
-fun Context.mainComponent(): MainComponent {
-    return when (this) {
-        is App -> mainComponent
-        else -> applicationContext.mainComponent()
-    }
-}
-fun Context.randomTextComponent(): RandomTextComponent {
-    return when (this) {
-        is App -> randomTextComponent
-        else -> applicationContext.randomTextComponent()
-    }
-}

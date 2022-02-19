@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.bolt.daggersample.App
 import com.bolt.daggersample.databinding.ActivityRandomTextBinding
-import com.bolt.daggersample.di.util.randomTextComponent
 import javax.inject.Inject
 
 class RandomTextActivity : AppCompatActivity() {
@@ -21,11 +21,16 @@ class RandomTextActivity : AppCompatActivity() {
         binding = ActivityRandomTextBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        randomTextComponent().inject(this)
+        (applicationContext as App).plusRandomTextComponent().inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory)[RandomTextViewModel::class.java]
 
         initViews()
         initObservers()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (applicationContext as App).clearRandomTextComponent()
     }
 
     private fun initViews() {

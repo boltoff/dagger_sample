@@ -5,8 +5,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.bolt.daggersample.App
 import com.bolt.daggersample.databinding.ActivityMainBinding
-import com.bolt.daggersample.di.util.mainComponent
+import com.bolt.daggersample.di.util.appComponent
 import com.bolt.daggersample.screen.randomtext.RandomTextActivity
 import javax.inject.Inject
 
@@ -23,11 +24,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        mainComponent().inject(this)
+        (applicationContext as App).plusMainComponent().inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory)[MainViewModel::class.java]
 
         initViews()
         initObservables()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (applicationContext as App).clearMainComponent()
     }
 
     private fun initViews() {

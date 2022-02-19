@@ -10,6 +10,9 @@ import javax.inject.Singleton
 @Component(modules = [UtilsModule::class])
 interface AppComponent {
 
+    fun plusMainComponent(): MainComponent
+    fun plusRandomTextComponent(): RandomTextComponent
+
     @Named("FirstText")
     fun firstText(): CustomText
 
